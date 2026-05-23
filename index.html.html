@@ -32,12 +32,18 @@
     <section class="page active" id="page-eventos">
       <div class="sec">
         <section class="hero">
-          <div class="hero-bg"><img src="assets/estacao-real.jpeg" alt="Bar Estação Jardim"></div>
+          <div class="hero-bg"><img src="assets/estacao-real.jpeg" alt="Ambiente do Bar Estação Jardim"></div>
           <div class="hero-c">
-            <div class="hero-ey">Bar Estação Jardim</div>
-            <img class="hero-logo" src="assets/logo.svg" alt="Logo Estação Jardim">
+            <div class="hero-head">
+              <div class="hero-logo-wrap"><img class="hero-logo" src="assets/logo.svg" alt="Logo Estação Jardim"></div>
+              <div class="hero-head-text">
+                <div class="hero-ey">Estação Jardim</div>
+                <div class="hero-label">Bar, Drinks e Eventos</div>
+              </div>
+            </div>
             <div class="hero-sub">Drinks autorais, petiscos generosos e clima de jardim.</div>
             <div class="hero-desc">Noite de shows, agito e atendimento que deixa o seu grupo confortável e feliz.</div>
+            <div class="hero-badges"><span>Aberto de ter. a dom. 16h–02h</span><span>Reservas pelo WhatsApp</span></div>
             <div class="hero-ctas"><button class="btn btn-gold" onclick="wpp('Olá! Quero reservar uma mesa')">Reservar</button><button class="btn btn-out" onclick="wpp('Quero a agenda de eventos')">Agenda</button></div>
           </div>
         </section>
@@ -107,7 +113,7 @@
             <div class="fc-body">
               <div class="fc-name">Caipirinha Tropical</div>
               <div class="fc-desc">Cachaça, limão, açúcar e toque de maracujá.</div>
-              <div class="fc-foot"><div class="fc-price">R$ 28</div><button class="fc-add">+</button></div>
+              <div class="fc-foot"><div class="fc-price">R$ 28</div><button class="fc-add" onclick="addToOrder('Caipirinha Tropical','R$ 28')">+</button></div>
             </div>
           </article>
           <article class="fc">
@@ -115,7 +121,7 @@
             <div class="fc-body">
               <div class="fc-name">Chope Artesanal</div>
               <div class="fc-desc">Copo gelado servido na pressão.</div>
-              <div class="fc-foot"><div class="fc-price">R$ 16</div><button class="fc-add">+</button></div>
+              <div class="fc-foot"><div class="fc-price">R$ 16</div><button class="fc-add" onclick="addToOrder('Chope Artesanal','R$ 16')">+</button></div>
             </div>
           </article>
           <article class="fc">
@@ -123,7 +129,7 @@
             <div class="fc-body">
               <div class="fc-name">Mini Camarão</div>
               <div class="fc-desc">Camões crocantes com maionese de limão.</div>
-              <div class="fc-foot"><div class="fc-price">R$ 34</div><button class="fc-add">+</button></div>
+              <div class="fc-foot"><div class="fc-price">R$ 34</div><button class="fc-add" onclick="addToOrder('Mini Camarão','R$ 34')">+</button></div>
             </div>
           </article>
         </div>
@@ -133,13 +139,54 @@
     <section class="page" id="page-reservas">
       <div class="sec">
         <div class="sec-hd"><div><div class="sec-title">Reservas</div><div class="sec-sub">Faça sua reserva via WhatsApp</div></div></div>
-        <form class="res-form" onsubmit="event.preventDefault(); solicitarReserva();">
-          <label>Nome<br><input id="r-nome" required></label>
-          <label>WhatsApp<br><input id="r-tel" required></label>
-          <label>Data<br><input id="r-data" type="date"></label>
-          <label>Observações<br><textarea id="r-obs"></textarea></label>
-          <button class="btn btn-green" type="submit">Enviar via WhatsApp</button>
-        </form>
+        <div class="res-grid">
+          <form class="res-form" onsubmit="event.preventDefault(); solicitarReserva();">
+            <div class="form-row">
+              <label>Nome<br><input id="r-nome" class="inp" required></label>
+              <label>WhatsApp<br><input id="r-tel" class="inp" placeholder="(11) 9xxxx-xxxx" required></label>
+            </div>
+            <div class="form-row">
+              <label>Data<br><input id="r-data" class="inp" type="date" required></label>
+              <label>Pessoas<br><select id="r-pax" class="inp">
+                <option value="1">1 pessoa</option>
+                <option value="2">2 pessoas</option>
+                <option value="3">3 pessoas</option>
+                <option value="4" selected>4 pessoas</option>
+                <option value="5">5 pessoas</option>
+                <option value="6+">6+ pessoas</option>
+              </select></label>
+            </div>
+            <label>Evento (opcional)<br><select id="r-ev" class="inp">
+              <option value="">Nenhum específico</option>
+              <option>Quinta do Pagode</option>
+              <option>Samba de Raiz</option>
+              <option>Aniversário do Estação</option>
+              <option>Outros</option>
+            </select></label>
+            <div class="fc-label">Horários sugeridos</div>
+            <div class="hchips">
+              <div class="hc sel" onclick="selH(this)">18:00</div>
+              <div class="hc" onclick="selH(this)">19:30</div>
+              <div class="hc" onclick="selH(this)">20:45</div>
+              <div class="hc" onclick="selH(this)">22:00</div>
+            </div>
+            <div class="res-preview" id="res-preview">
+              <div class="preview-title">Resumo rápido</div>
+              <div class="preview-line" id="preview-text">Data, horário e número de pessoas aparecerão aqui.</div>
+            </div>
+            <label>Observações<br><textarea id="r-obs" class="inp" placeholder="Ex: mesa no canto, aniversário, cadeira extra"></textarea></label>
+            <button class="btn btn-green" type="submit">Enviar via WhatsApp</button>
+          </form>
+
+          <aside class="info-card">
+            <div class="info-title">Detalhes da reserva</div>
+            <div class="info-txt">Preencha seus dados e envie um pedido direto no WhatsApp. Receba confirmação rápida e atendimento personalizado.</div>
+            <div class="info-txt"><strong>WhatsApp:</strong> +55 11 94719-6813</div>
+            <div class="info-txt"><strong>Horário ideal:</strong> 18h–23h</div>
+            <div class="info-txt"><strong>Local:</strong> Rua do Bar, 123 - Estação Jardim</div>
+            <div class="info-txt"><strong>Dica:</strong> Para grupos maiores, envie uma mensagem explicando com antecedência.</div>
+          </aside>
+        </div>
       </div>
     </section>
 
@@ -147,13 +194,16 @@
       <div class="sec">
         <div class="sec-hd"><div><div class="sec-title"><em>Galeria</em></div><div class="sec-sub">Fotos do bar</div></div><a href="https://www.instagram.com/estacaojardimbar" target="_blank" class="btn btn-out btn-sm">Instagram</a></div>
         <div class="gal-grid">
-          <div class="gi tall" style="background:linear-gradient(135deg,#2c2311,#1a150d);">
+          <div class="gi tall">
+            <img src="assets/estacao-real.jpeg" alt="Área externa do bar">
             <div class="gi-label">Área externa</div>
           </div>
-          <div class="gi" style="background:linear-gradient(135deg,#2b2c23,#11100d);">
+          <div class="gi">
+            <img src="assets/estacao-real.jpeg" alt="Bar e drinks">
             <div class="gi-label">Bar e drinks</div>
           </div>
-          <div class="gi" style="background:linear-gradient(135deg,#2f2317,#120f0c);">
+          <div class="gi">
+            <img src="assets/estacao-real.jpeg" alt="Mesa reservada para convidados">
             <div class="gi-label">Mesa reservada</div>
           </div>
         </div>
@@ -170,7 +220,21 @@
     </div>
 
   </div>
-
+  <div class="order-panel" id="order-panel" aria-hidden="true">
+    <button class="order-toggle" id="order-toggle" aria-label="Abrir pedido">🧾 <span id="order-count">0</span></button>
+    <div class="order-body" id="order-body" role="region" aria-label="Resumo do pedido">
+      <div class="order-head">
+        <div class="order-title">Seu pedido</div>
+        <button class="order-clear" id="order-clear" title="Limpar">✖</button>
+      </div>
+      <div id="order-items" class="order-items"></div>
+      <div class="order-actions">
+        <button class="btn btn-out" onclick="clearOrder()">Limpar</button>
+        <button class="btn btn-green" onclick="sendOrder()">Enviar via WhatsApp</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="js/app.js"></script>
 </body>
 </html>
