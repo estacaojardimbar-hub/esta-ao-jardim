@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Bar Estação Jardim</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@300;400;700;900&family=Playfair+Display:ital&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="splash"></div>
+
+  <div class="app">
+    <aside class="sb">
+      <div class="sb-brand">
+        <div class="sb-logo"><img src="assets/logo.svg" alt="Estação Jardim logo"></div>
+        <div class="sb-name">Estação Jardim</div>
+      </div>
+      <nav class="nav">
+        <div class="ni active" data-target="page-eventos"><div class="ni-icon">🎵</div><div class="ni-lbl">Eventos</div></div>
+        <div class="ni" data-target="page-cardapio"><div class="ni-icon">🍽️</div><div class="ni-lbl">Cardápio</div></div>
+        <div class="ni" data-target="page-reservas"><div class="ni-icon">💺</div><div class="ni-lbl">Reservas</div></div>
+        <div class="ni" data-target="page-galeria"><div class="ni-icon">📸</div><div class="ni-lbl">Galeria</div></div>
+      </nav>
+      <div class="sb-foot" onclick="wpp('Olá! Gostaria de informações')">
+        <div class="sb-wpp">📱</div>
+        <div class="sb-wt">WhatsApp</div>
+      </div>
+    </aside>
+
+    <main class="main">
+    <section class="page active" id="page-eventos">
+      <div class="sec">
+        <section class="hero">
+          <div class="hero-bg"><img src="assets/estacao-real.jpeg" alt="Bar Estação Jardim"></div>
+          <div class="hero-c">
+            <div class="hero-ey">Bar Estação Jardim</div>
+            <img class="hero-logo" src="assets/logo.svg" alt="Logo Estação Jardim">
+            <div class="hero-sub">Drinks autorais, petiscos generosos e clima de jardim.</div>
+            <div class="hero-desc">Noite de shows, agito e atendimento que deixa o seu grupo confortável e feliz.</div>
+            <div class="hero-ctas"><button class="btn btn-gold" onclick="wpp('Olá! Quero reservar uma mesa')">Reservar</button><button class="btn btn-out" onclick="wpp('Quero a agenda de eventos')">Agenda</button></div>
+          </div>
+        </section>
+        <div class="sec-hd">
+          <div><div class="sec-title"><em>Eventos</em></div><div class="sec-sub">Agenda de Shows</div></div>
+          <button class="btn btn-green btn-sm" onclick="wpp('Quero a agenda de eventos')">📲 Agenda</button>
+        </div>
+        <div class="ev-list">
+          <article class="ev-card">
+            <div class="ev-inner">
+              <div class="ev-date">
+                <div class="ev-day">17</div>
+                <div class="ev-month">ABR</div>
+                <div class="ev-wd">Quinta</div>
+              </div>
+              <div class="ev-body">
+                <div style="display:flex;gap:8px;flex-wrap:wrap;"><span class="chip cv">Ingressos</span><span class="chip ca">Sujeito a lotação</span></div>
+                <div class="ev-title">Quinta do Pagode</div>
+                <div class="ev-artist">Grupo Sementes do Samba</div>
+                <p class="ev-desc">Roda de pagode com drinks especiais e área reservada para grupos.</p>
+                <div class="ev-acts"><button class="btn btn-gold btn-sm" onclick="wpp('Quero ingresso Quinta do Pagode 17/04')">🎟️ Reservar</button><span style="font-size:11px;color:var(--muted);">19h–23h</span></div>
+              </div>
+            </div>
+          </article>
+          <article class="ev-card">
+            <div class="ev-inner">
+              <div class="ev-date">
+                <div class="ev-day">19</div>
+                <div class="ev-month">ABR</div>
+                <div class="ev-wd">Sábado</div>
+              </div>
+              <div class="ev-body">
+                <div style="display:flex;gap:8px;flex-wrap:wrap;"><span class="chip cg">Especial</span><span class="chip cv">Mesa VIP</span></div>
+                <div class="ev-title">Samba de Raiz</div>
+                <div class="ev-artist">Batuke na Alma + convidados</div>
+                <p class="ev-desc">Edição especial com feijoada e música ao vivo. Reserve sua mesa.</p>
+                <div class="ev-acts"><button class="btn btn-out btn-sm" onclick="wpp('Quero ingresso Samba de Raiz 19/04')">WhatsApp</button><span style="font-size:11px;color:var(--muted);">17h–00h</span></div>
+              </div>
+            </div>
+          </article>
+          <article class="ev-card">
+            <div class="ev-inner">
+              <div class="ev-date">
+                <div class="ev-day">26</div>
+                <div class="ev-month">ABR</div>
+                <div class="ev-wd">Sábado</div>
+              </div>
+              <div class="ev-body">
+                <div style="display:flex;gap:8px;flex-wrap:wrap;"><span class="chip ca">Aniversário</span></div>
+                <div class="ev-title">Aniversário do Estação</div>
+                <div class="ev-artist">Programação surpresa</div>
+                <p class="ev-desc">A maior festa do mês com promoções de beber e menu exclusivo.</p>
+                <div class="ev-acts"><button class="btn btn-gold btn-sm" onclick="wpp('Quero mesa para o Aniversário do Estação 26/04')">🎉 Reservar</button><span style="font-size:11px;color:var(--muted);">20h–02h</span></div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-cardapio">
+      <div class="sec">
+        <div class="sec-hd"><div><div class="sec-title"><em>Cardápio</em></div><div class="sec-sub">Drinks e petiscos</div></div></div>
+        <div class="fgrid">
+          <article class="fc">
+            <div class="fc-img" style="background:#1f1a0f;height:180px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:72px;">🍹</div>
+            <div class="fc-body">
+              <div class="fc-name">Caipirinha Tropical</div>
+              <div class="fc-desc">Cachaça, limão, açúcar e toque de maracujá.</div>
+              <div class="fc-foot"><div class="fc-price">R$ 28</div><button class="fc-add">+</button></div>
+            </div>
+          </article>
+          <article class="fc">
+            <div class="fc-img" style="background:#1a1f0f;height:180px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:72px;">🍺</div>
+            <div class="fc-body">
+              <div class="fc-name">Chope Artesanal</div>
+              <div class="fc-desc">Copo gelado servido na pressão.</div>
+              <div class="fc-foot"><div class="fc-price">R$ 16</div><button class="fc-add">+</button></div>
+            </div>
+          </article>
+          <article class="fc">
+            <div class="fc-img" style="background:#1a1510;height:180px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:72px;">🍤</div>
+            <div class="fc-body">
+              <div class="fc-name">Mini Camarão</div>
+              <div class="fc-desc">Camões crocantes com maionese de limão.</div>
+              <div class="fc-foot"><div class="fc-price">R$ 34</div><button class="fc-add">+</button></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-reservas">
+      <div class="sec">
+        <div class="sec-hd"><div><div class="sec-title">Reservas</div><div class="sec-sub">Faça sua reserva via WhatsApp</div></div></div>
+        <form class="res-form" onsubmit="event.preventDefault(); solicitarReserva();">
+          <label>Nome<br><input id="r-nome" required></label>
+          <label>WhatsApp<br><input id="r-tel" required></label>
+          <label>Data<br><input id="r-data" type="date"></label>
+          <label>Observações<br><textarea id="r-obs"></textarea></label>
+          <button class="btn btn-green" type="submit">Enviar via WhatsApp</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="page" id="page-galeria">
+      <div class="sec">
+        <div class="sec-hd"><div><div class="sec-title"><em>Galeria</em></div><div class="sec-sub">Fotos do bar</div></div><a href="https://www.instagram.com/estacaojardimbar" target="_blank" class="btn btn-out btn-sm">Instagram</a></div>
+        <div class="gal-grid">
+          <div class="gi tall" style="background:linear-gradient(135deg,#2c2311,#1a150d);">
+            <div class="gi-label">Área externa</div>
+          </div>
+          <div class="gi" style="background:linear-gradient(135deg,#2b2c23,#11100d);">
+            <div class="gi-label">Bar e drinks</div>
+          </div>
+          <div class="gi" style="background:linear-gradient(135deg,#2f2317,#120f0c);">
+            <div class="gi-label">Mesa reservada</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+    <!-- mobile bottom nav -->
+    <div class="mnav">
+      <div class="mn active" data-target="page-eventos">🎵<div class="mn-l">Eventos</div></div>
+      <div class="mn" data-target="page-cardapio">🍽️<div class="mn-l">Cardápio</div></div>
+      <div class="mn" data-target="page-reservas">💺<div class="mn-l">Reservas</div></div>
+      <div class="mn" data-target="page-galeria">📸<div class="mn-l">Galeria</div></div>
+    </div>
+
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

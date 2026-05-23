@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f0c040"/>
+      <stop offset="100%" stop-color="#d4a017"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="120" rx="24" fill="#0a0a06"/>
+  <text x="32" y="62" font-family="Bebas Neue, sans-serif" font-size="46" fill="url(#g)">Estação</text>
+  <text x="34" y="98" font-family="Lato, sans-serif" font-size="24" fill="#f0e8c8">Jardim</text>
+  <circle cx="360" cy="30" r="14" fill="#25d366"/>
+  <circle cx="340" cy="36" r="7" fill="#88d367"/>
+</svg>
