@@ -33,6 +33,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   const reservationInputs = document.querySelectorAll('#r-nome,#r-tel,#r-pax,#r-data,#r-ev,#r-obs');
   reservationInputs.forEach(i=>i.addEventListener('input', updatePreview));
+  
+  const rData = document.getElementById('r-data');
+  if(rData) rData.min = new Date().toISOString().split("T")[0];
+  
   updatePreview();
 });
 
@@ -176,8 +180,12 @@ function solicitarReserva(){
     `Evento: ${eventoTexto}`,
     obs ? `Observações: ${obs}` : ''
   ].filter(Boolean).join('\n');
-  showToast('Redirecionando para o WhatsApp...');
-  setTimeout(()=>wpp(mensagem), 420);
+  showToast('Abrindo o WhatsApp...');
+  setTimeout(() => {
+    wpp(mensagem);
+    document.querySelector('.res-form')?.reset();
+    updatePreview();
+  }, 420);
 }
 
 function tgFaq(el){

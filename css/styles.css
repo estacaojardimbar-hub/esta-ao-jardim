@@ -139,7 +139,7 @@ select.inp option{background:#1a1a10;}
 .res-preview{background:rgba(255,255,255,.04);border:1px solid rgba(212,160,23,.2);border-radius:12px;padding:16px;margin:16px 0;}
 .preview-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin-bottom:8px;}
 .preview-line{font-size:13px;color:var(--muted);line-height:1.6;}
-.faq-item{background:var(--s2);border:1px solid var(--b);border-radius:8px;margin-bottom:6px;overflow:hidden;
+.faq-item{background:var(--s2);border:1px solid var(--b);border-radius:8px;margin-bottom:6px;overflow:hidden;}
 .faq-q{padding:12px 15px;font-weight:700;font-size:12px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none;}
 .faq-q:hover,.faq-item.open .faq-q{color:var(--gold);}
 .faq-q span{color:var(--muted);font-size:11px;transition:transform .2s;}
