@@ -10,8 +10,8 @@ body{background:var(--bg);color:var(--text);font-family:'Lato',sans-serif;overfl
 .sp-fill{height:100%;width:0;background:var(--grad);animation:load 2.4s ease forwards;}
 @keyframes load{to{width:100%;}}
 .app{display:flex;height:100vh;overflow:hidden;}
-.sb{width:70px;background:var(--s);border-right:1px solid var(--b);display:flex;flex-direction:column;align-items:center;flex-shrink:0;z-index:100;transition:width .35s cubic-bezier(.4,0,.2,1);overflow:hidden;}
-.sb:hover{width:224px;}
+.sb{width:70px;background:rgba(16,15,8,0.95);backdrop-filter:blur(10px);border-right:1px solid var(--b);display:flex;flex-direction:column;align-items:center;flex-shrink:0;z-index:100;transition:width .4s cubic-bezier(.4,0,.2,1);overflow:hidden;}
+.sb:hover{width:224px;box-shadow: 4px 0 24px rgba(0,0,0,0.5);}
 .sb-brand{padding:14px 0;border-bottom:1px solid var(--b);width:100%;display:flex;flex-direction:column;align-items:center;gap:4px;}
 .sb-logo{width:46px;height:46px;border-radius:50%;overflow:hidden;border:2px solid var(--gold);flex-shrink:0;}
 .sb-logo img{width:100%;height:100%;object-fit:cover;}
@@ -32,9 +32,9 @@ body{background:var(--bg);color:var(--text);font-family:'Lato',sans-serif;overfl
 .sb-wt{font-size:10px;font-weight:700;color:#25d366;text-transform:uppercase;letter-spacing:1px;opacity:0;transition:opacity .2s;white-space:nowrap;}
 .sb:hover .sb-wt{opacity:1;}
 .main{flex:1;overflow-y:auto;background:var(--bg);}
-.page{display:none;animation:fi .4s ease;min-height:100%;}
+.page{display:none;animation:fi .6s cubic-bezier(0.16, 1, 0.3, 1);min-height:100%;}
 .page.active{display:block;}
-@keyframes fi{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fi{from{opacity:0;transform:translateY(20px) scale(0.98);}to{opacity:1;transform:translateY(0) scale(1);}}
 .sec{padding:34px 38px;}
 .sec-hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;}
 .sec-title{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:2px;color:var(--cream);line-height:1;}
@@ -77,8 +77,8 @@ body{background:var(--bg);color:var(--text);font-family:'Lato',sans-serif;overfl
 .stat-n{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--gold);line-height:1;letter-spacing:2px;}
 .stat-l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-top:4px;}
 .fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
-.fc{background:var(--s);border:1px solid var(--b);border-radius:13px;overflow:hidden;transition:all .25s;cursor:pointer;}
-.fc:hover{border-color:var(--bs);transform:translateY(-4px);box-shadow:0 16px 30px rgba(0,0,0,.4);} 
+.fc{background:var(--s);border:1px solid var(--b);border-radius:13px;overflow:hidden;transition:all .4s cubic-bezier(0.16, 1, 0.3, 1);cursor:pointer;}
+.fc:hover{border-color:var(--gold);transform:translateY(-6px) scale(1.02);box-shadow:0 20px 40px rgba(0,0,0,.6), 0 0 15px rgba(212,160,23,0.15);} 
 .fc-img{height:160px;overflow:hidden;position:relative;}
 .fc-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
 .fc:hover .fc-img img{transform:scale(1.06);} 
@@ -114,7 +114,8 @@ body{background:var(--bg);color:var(--text);font-family:'Lato',sans-serif;overfl
 .gi-label{position:absolute;bottom:16px;left:16px;color:#fff;font-weight:900;font-size:14px;text-transform:uppercase;letter-spacing:1px;background:rgba(0,0,0,.45);padding:8px 12px;border-radius:10px;}
 .gi.tall{grid-row:span 2;}
 .res-grid{display:grid;grid-template-columns:1fr 320px;gap:26px;align-items:start;}
-.res-form{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:26px;}
+.res-form{background:rgba(16,15,8,0.7);backdrop-filter:blur(12px);border:1px solid rgba(212,160,23,0.2);border-radius:14px;padding:26px;box-shadow: 0 10px 30px rgba(0,0,0,0.3);transition: transform 0.3s ease;}
+.res-form:hover{transform: translateY(-2px); border-color: rgba(212,160,23,0.4);}
 .res-form label{display:block;font-size:12px;color:var(--cream);margin-bottom:16px;}
 .res-form label input,
 .res-form label select,
