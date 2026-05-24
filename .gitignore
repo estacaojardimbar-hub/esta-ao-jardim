@@ -7,3 +7,7 @@ __pycache__/
 *.pyc
 .DS_Store
 Thumbs.db
+
+# ZECA Bot - sessão do WhatsApp (NÃO subir pro GitHub!)
+bot/sessao-zeca/
+bot/node_modules/

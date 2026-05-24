@@ -1,0 +1,14 @@
+{
+  "name": "zeca-bot",
+  "version": "1.0.0",
+  "description": "ZECA - Bot de atendimento inteligente do Estação Jardim Bar",
+  "main": "zeca.js",
+  "scripts": {
+    "start": "node zeca.js"
+  },
+  "dependencies": {
+    "whatsapp-web.js": "^1.26.1-alpha.3",
+    "qrcode-terminal": "^0.12.0",
+    "@google/generative-ai": "^0.21.0"
+  }
+}
