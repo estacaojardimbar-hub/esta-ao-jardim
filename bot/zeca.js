@@ -81,21 +81,132 @@ function addMensagem(chatId, role, text) {
   }
 }
 
-// ─── Gera resposta com Gemini ────────────────────────────────
+// ─── Gera resposta com Gemini com suporte a Tools/Function Calling ─────
+const axios = require('axios');
+const API_URL = 'http://localhost:3000'; // Ajuste conforme porta real
+
+// Definição das ferramentas que o Zeca pode usar
+const zecaTools = [
+  {
+    functionDeclarations: [
+      {
+        name: 'criarReserva',
+        description: 'Registra uma reserva de mesa para um cliente no banco de dados do bar.',
+        parameters: {
+          type: 'OBJECT',
+          properties: {
+            name: { type: 'STRING', description: 'Nome do cliente' },
+            phone: { type: 'STRING', description: 'Número do WhatsApp ou telefone do cliente' },
+            date: { type: 'STRING', description: 'Data da reserva no formato YYYY-MM-DD' },
+            time: { type: 'STRING', description: 'Horário sugerido para reserva, ex: 19:30' },
+            guests: { type: 'NUMBER', description: 'Número de pessoas' },
+            notes: { type: 'STRING', description: 'Observações adicionais ou opcionais (aniversário, área vip, etc.)' }
+          },
+          required: ['name', 'phone', 'date', 'time', 'guests']
+        }
+      },
+      {
+        name: 'criarPedido',
+        description: 'Envia um pedido de consumo (bebida ou porção) para uma mesa no bar.',
+        parameters: {
+          type: 'OBJECT',
+          properties: {
+            name: { type: 'STRING', description: 'Nome do cliente' },
+            phone: { type: 'STRING', description: 'WhatsApp ou telefone' },
+            tableNumber: { type: 'NUMBER', description: 'Número da mesa (opcional)' },
+            items: {
+              type: 'ARRAY',
+              description: 'Lista de itens pedidos',
+              items: {
+                type: 'OBJECT',
+                properties: {
+                  name: { type: 'STRING', description: 'Nome do item exatamente como no cardápio, ex: Caipirinha Tropical, Chope Artesanal ou Mini Camarão' },
+                  price: { type: 'NUMBER', description: 'Preço unitário do item' },
+                  quantity: { type: 'NUMBER', description: 'Quantidade desejada' }
+                },
+                required: ['name', 'price', 'quantity']
+              }
+            }
+          },
+          required: ['name', 'phone', 'items']
+        }
+      }
+    ]
+  }
+];
+
+// Funções executoras
+async function executarTool(call, phonePadrao) {
+  const { name, args } = call;
+  try {
+    if (name === 'criarReserva') {
+      const payload = {
+        name: args.name,
+        phone: args.phone || phonePadrao,
+        date: args.date,
+        time: args.time,
+        guests: Number(args.guests),
+        notes: args.notes || ''
+      };
+      const res = await axios.post(`${API_URL}/reservations`, payload);
+      return `[Zeca Bot] Sucesso! Reserva criada para ${payload.name} dia ${payload.date} às ${payload.time}. ID: ${res.data.id}`;
+    }
+
+    if (name === 'criarPedido') {
+      const payload = {
+        name: args.name,
+        phone: args.phone || phonePadrao,
+        tableNumber: args.tableNumber ? Number(args.tableNumber) : undefined,
+        items: args.items.map(i => ({
+          name: i.name,
+          price: Number(i.price),
+          quantity: Number(i.quantity)
+        }))
+      };
+      const res = await axios.post(`${API_URL}/orders`, payload);
+      return `[Zeca Bot] Sucesso! Pedido enviado para cozinha/bar. Total: R$ ${res.data.total}. ID: ${res.data.id}`;
+    }
+  } catch (error) {
+    console.error('❌ Erro na integração da API do Zeca:', error.response?.data || error.message);
+    return `[Zeca Bot] Ops, houve um problema ao processar o seu pedido/reserva na nossa API interna. Motivo: ${error.response?.data?.message || error.message}`;
+  }
+  return 'Função desconhecida';
+}
+
 async function gerarResposta(chatId, mensagemUsuario) {
   try {
     addMensagem(chatId, 'user', mensagemUsuario);
 
     const chat = model.startChat({
-      history: getHistorico(chatId).slice(0, -1), // Tudo menos a última (que vamos enviar agora)
+      history: getHistorico(chatId).slice(0, -1),
       systemInstruction: ZECA_PROMPT,
+      tools: zecaTools,
     });
 
     const result = await chat.sendMessage(mensagemUsuario);
+    
+    // Verifica se o modelo quer chamar alguma função
+    const calls = result.response.functionCalls;
+    if (calls && calls.length > 0) {
+      console.log(`🤖 Zeca detectou intenção de ação:`, calls[0].name, calls[0].args);
+      const output = await executarTool(calls[0], chatId.replace('@c.us', ''));
+      
+      // Envia o resultado da função de volta para o modelo concluir a conversa
+      const followUp = await chat.sendMessage([
+        {
+          functionResponse: {
+            name: calls[0].name,
+            response: { result: output }
+          }
+        }
+      ]);
+      const respostaFinal = followUp.response.text();
+      addMensagem(chatId, 'model', respostaFinal);
+      return respostaFinal;
+    }
+
     const resposta = result.response.text();
-
     addMensagem(chatId, 'model', resposta);
-
     return resposta;
   } catch (error) {
     console.error('❌ Erro ao gerar resposta do Gemini:', error.message);
@@ -108,6 +219,7 @@ const client = new Client({
   authStrategy: new LocalAuth({ dataPath: './sessao-zeca' }),
   puppeteer: {
     headless: true,
+    executablePath: 'C:\\Users\\Ana Beatriz\\.cache\\puppeteer\\chrome\\win64-149.0.7827.22\\chrome-win64\\chrome.exe',
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
@@ -171,7 +283,7 @@ client.on('auth_failure', (msg) => {
 client.on('disconnected', (reason) => {
   console.log('🔌 Desconectado:', reason);
   console.log('Reiniciando em 5 segundos...');
-  setTimeout(() => client.initialize(), 5000);
+  // setTimeout(() => client.initialize(), 5000); // restart desativado
 });
 
 // ─── Inicia o bot ────────────────────────────────────────────
@@ -179,3 +291,16 @@ console.log('\n🚀 Iniciando o ZECA...');
 console.log('📍 Bar Estação Jardim — Bot de Atendimento');
 console.log('─'.repeat(45));
 client.initialize();
+
+function detectarGenero(texto) {
+  if (/sou mulher|minha|ela/i.test(texto)) return "feminino";
+  if (/sou homem|meu|ele/i.test(texto)) return "masculino";
+  return "neutro";
+}
+
+function ajustarGenero(resposta, genero) {
+  if (genero === "feminino") {
+    return resposta.replace("parceiro", "parceira");
+  }
+  return resposta;
+}

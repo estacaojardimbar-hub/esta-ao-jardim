@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER
+}
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+enum OrderStatus {
+  OPEN
+  PREPARING
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id           String        @id @default(uuid())
+  name         String?
+  email        String        @unique
+  password     String
+  phone        String?       @unique
+  role         Role          @default(CUSTOMER)
+  createdAt    DateTime      @default(now())
+  reservations Reservation[]
+  orders       Order[]
+}
+
+model Reservation {
+  id        String            @id @default(uuid())
+  date      DateTime
+  time      String
+  guests    Int
+  status    ReservationStatus @default(PENDING)
+  notes     String?
+  userId    String
+  user      User              @relation(fields: [userId], references: [id])
+  createdAt DateTime          @default(now())
+}
+
+model Order {
+  id          String      @id @default(uuid())
+  status      OrderStatus @default(OPEN)
+  total       Decimal     @default(0)
+  tableNumber Int?
+  userId      String
+  user        User        @relation(fields: [userId], references: [id])
+  items       OrderItem[]
+  createdAt   DateTime    @default(now())
+}
+
+model OrderItem {
+  id       String  @id @default(uuid())
+  order    Order   @relation(fields: [orderId], references: [id])
+  orderId  String
+  name     String
+  price    Decimal
+  quantity Int
+}
+
+model MenuItem {
+  id        String   @id @default(uuid())
+  name      String
+  description String?
+  price     Decimal
+  image     String?
+  category  String?
+  available Boolean  @default(true)
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,12 @@
+{
+  "name": "estacao-jardim",
+  "private": true,
+  "scripts": {
+    "dev": "docker compose up --build",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down",
+    "backend:install": "cd backend-gateway && npm install",
+    "backend:prisma:push": "cd backend-gateway && npm run prisma:push",
+    "backend:seed": "cd backend-gateway && npm run prisma:seed"
+  }
+}

@@ -8,6 +8,16 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
+# Environment
+.env
+
 # ZECA Bot - sessão do WhatsApp (NÃO subir pro GitHub!)
 bot/sessao-zeca/
+bot/.wwebjs_cache/
+bot/.wwebjs_auth/
 bot/node_modules/
+
+# Prisma generated
+/generated/prisma
+backend-gateway/prisma/dev.db
+backend-gateway/dist/

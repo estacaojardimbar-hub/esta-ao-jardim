@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estação Jardim</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <h1>Estação Jardim</h1>
+        <p>Sistema de reservas, pedidos e cardápio</p>
+      </div>
+      <div class="topbar-actions">
+        <button id="btn-login">Entrar / Registrar</button>
+        <button id="btn-logout" class="hidden">Sair</button>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <button data-tab="menu" class="active">Cardápio</button>
+      <button data-tab="reservation">Reservar</button>
+      <button data-tab="order">Fazer pedido</button>
+      <button data-tab="history">Meus pedidos</button>
+    </nav>
+
+    <section id="status" class="status"></section>
+
+    <main>
+      <section id="auth-section" class="panel hidden">
+        <h2>Entrar ou registrar</h2>
+        <div class="auth-grid">
+          <form id="login-form" class="card">
+            <h3>Login</h3>
+            <label>e-mail<input type="email" name="email" required /></label>
+            <label>senha<input type="password" name="password" required minlength="6" /></label>
+            <button type="submit">Entrar</button>
+          </form>
+          <form id="register-form" class="card">
+            <h3>Registrar</h3>
+            <label>nome<input type="text" name="name" required /></label>
+            <label>e-mail<input type="email" name="email" required /></label>
+            <label>senha<input type="password" name="password" required minlength="6" /></label>
+            <button type="submit">Registrar</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="menu-section" class="panel">
+        <h2>Cardápio</h2>
+        <div id="menu-list" class="menu-list"></div>
+      </section>
+
+      <section id="reservation-section" class="panel hidden">
+        <h2>Reservar mesa</h2>
+        <form id="reservation-form" class="card form-card">
+          <label>Data<input type="date" name="date" required /></label>
+          <label>Horário<input type="time" name="time" required /></label>
+          <label>Pessoas<input type="number" name="guests" min="1" required /></label>
+          <label>Observações<textarea name="notes"></textarea></label>
+          <button type="submit">Enviar reserva</button>
+        </form>
+      </section>
+
+      <section id="order-section" class="panel hidden">
+        <h2>Fazer pedido</h2>
+        <form id="order-form" class="card form-card">
+          <label>Número da mesa<input type="number" name="tableNumber" min="1" required /></label>
+          <div id="order-items" class="order-items"></div>
+          <button type="submit">Enviar pedido</button>
+        </form>
+      </section>
+
+      <section id="history-section" class="panel hidden">
+        <h2>Histórico</h2>
+        <div id="reservation-history" class="history-block"></div>
+        <div id="order-history" class="history-block"></div>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

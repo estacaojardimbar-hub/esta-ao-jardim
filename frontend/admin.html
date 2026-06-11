@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Administrativo — Estação Jardim</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .admin-container {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      min-height: 100vh;
+    }
+    .admin-sidebar {
+      background: var(--primary);
+      color: #fff;
+      padding: 24px;
+    }
+    .admin-sidebar h2 {
+      margin-top: 0;
+      font-size: 1.5rem;
+    }
+    .admin-menu button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+    .admin-menu button.active {
+      background: rgba(255,255,255,0.2);
+    }
+    .admin-content {
+      padding: 32px;
+      background: #f4f7f2;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .data-table th, .data-table td {
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    .data-table th {
+      background: #fcfcfc;
+      font-weight: 600;
+    }
+    .badge {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .badge.PENDING, .badge.OPEN { background: #ffeebb; color: #b78103; }
+    .badge.CONFIRMED, .badge.COMPLETED { background: #ddf7e2; color: #1e5a2c; }
+    .badge.CANCELLED { background: #ffe3e2; color: #a8251e; }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <aside class="admin-sidebar">
+      <h2>Estação Jardim Admin</h2>
+      <div class="admin-menu">
+        <button id="tab-orders" class="active">Pedidos</button>
+        <button id="tab-reservations">Reservas</button>
+        <button id="btn-back">Ver Cardápio</button>
+      </div>
+    </aside>
+    <main class="admin-content">
+      <div id="login-panel" class="card" style="max-width: 400px; margin: 50px auto;">
+        <h3>Acesso Restrito</h3>
+        <form id="admin-login-form">
+          <label>E-mail admin<input type="email" id="admin-email" required></label>
+          <label>Senha<input type="password" id="admin-password" required></label>
+          <button type="submit" style="width:100%;">Entrar no Painel</button>
+        </form>
+      </div>
+
+      <div id="dashboard-panel" class="hidden">
+        <h2 id="section-title">Pedidos</h2>
+        <div id="table-container"></div>
+      </div>
+    </main>
+  </div>
+  <script src="admin.js"></script>
+</body>
+</html>
